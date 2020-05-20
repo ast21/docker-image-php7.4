@@ -13,10 +13,11 @@ ENV COMPOSER_HOME /home/$USER/.composer
 # Create user
 RUN useradd --create-home --shell /bin/bash $USER
 
-# Install composer
+# Install composer with hirak/prestissimo
 RUN curl -sS https://getcomposer.org/composer-stable.phar -o /usr/local/bin/composer \
     && chmod +x /usr/local/bin/composer \
     && composer --no-interaction global require 'hirak/prestissimo' \
     && chown -R $USER:$USER /home/$USER/.composer
 
+RUN chown -R $USER:$USER /var/www
 WORKDIR /var/www
