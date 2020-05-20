@@ -20,4 +20,5 @@ RUN curl -sS https://getcomposer.org/composer-stable.phar -o /usr/local/bin/comp
     && chown -R $USER:$USER /home/$USER/.composer
 
 RUN chown -R $USER:$USER /var/www
+USER php
 WORKDIR /var/www
