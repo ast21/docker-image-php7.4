@@ -1,4 +1,4 @@
-### Use Watchtower
+### Using Watchtower
 
 for automatic pulling updates from server every 5 min
 
