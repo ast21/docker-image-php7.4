@@ -8,17 +8,14 @@ RUN apt-get update && apt-get install -y \
 
 # Environments
 ENV USER php
-ENV COMPOSER_HOME /home/$USER/.composer
+ENV COMPOSER_VERSION 2.0.7
+
+# Install composer
+RUN curl -sS https://getcomposer.org/download/$COMPOSER_VERSION/composer.phar -o /usr/local/bin/composer \
+    && chmod +x /usr/local/bin/composer
 
 # Create user
 RUN useradd --create-home --shell /bin/bash $USER
-
-# Install composer with hirak/prestissimo
-RUN curl -sS https://getcomposer.org/composer-stable.phar -o /usr/local/bin/composer \
-    && chmod +x /usr/local/bin/composer \
-    && composer --no-interaction global require 'hirak/prestissimo' \
-    && chown -R $USER:$USER /home/$USER/.composer
-
 RUN chown -R $USER:$USER /var/www
-USER php
+USER $USER
 WORKDIR /var/www
