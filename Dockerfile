@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
 
 # Environments
 ENV USER php
-ENV COMPOSER_VERSION 2.0.7
+ENV COMPOSER_VERSION 2.1.3
 
 # Install composer
 RUN curl -sS https://getcomposer.org/download/$COMPOSER_VERSION/composer.phar -o /usr/local/bin/composer \
