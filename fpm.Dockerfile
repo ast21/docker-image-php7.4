@@ -7,7 +7,7 @@ ARG USER=php
 # Install dependencies
 RUN apt-get update && apt-get install -y \
         git zip unzip libpq-dev libzip-dev libpng-dev libfreetype6-dev libjpeg62-turbo-dev \
-    && docker-php-ext-install -j$(nproc) bcmath pdo_mysql pdo_pgsql gd zip exif \
+    && docker-php-ext-install -j$(nproc) bcmath pdo_mysql pdo_pgsql gd zip exif sockets pcntl \
     && apt-get clean && apt-get autoclean
 
 # Install composer
