@@ -22,5 +22,5 @@ COPY --from=roadrunner /usr/bin/rr /usr/local/bin/rr
 # Open port 8000
 EXPOSE 8000
 
-# Start Laravel Octane
+# Start Laravel 9 Octane
 CMD ["php", "/var/www/html/artisan", "octane:start", "--host=0.0.0.0"]
