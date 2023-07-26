@@ -2,7 +2,6 @@ ARG PHP_VERSION=8.2.5
 FROM php:${PHP_VERSION}-cli
 
 ARG COMPOSER_VERSION=2.5.5
-ARG USER=php
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -15,9 +14,3 @@ RUN apt-get update && apt-get install -y \
 # Install composer
 RUN curl -sS https://getcomposer.org/download/$COMPOSER_VERSION/composer.phar -o /usr/local/bin/composer \
     && chmod +x /usr/local/bin/composer
-
-# Create user
-RUN useradd --create-home --shell /bin/bash $USER
-RUN chown -R $USER:$USER /var/www
-USER $USER
-WORKDIR /var/www
