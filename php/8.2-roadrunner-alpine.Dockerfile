@@ -6,8 +6,9 @@ FROM ghcr.io/roadrunner-server/roadrunner:${ROADRUNNER_VERSION} AS roadrunner
 FROM php:${PHP_VERSION}-cli-alpine${ALPINE_VERSION}
 
 # Install dependencies
-RUN apk --no-cache add zip unzip libpq-dev libzip-dev libpng-dev linux-headers
-RUN docker-php-ext-install -j$(nproc) bcmath pdo_mysql pdo_pgsql gd zip exif sockets pcntl
+RUN apk --no-cache add zip unzip libpq-dev libzip-dev libpng-dev linux-headers icu-dev
+RUN docker-php-ext-configure intl
+RUN docker-php-ext-install -j$(nproc) bcmath pdo_mysql pdo_pgsql gd zip exif sockets pcntl intl
 
 # Install composer
 ARG COMPOSER_VERSION=2.6.5
