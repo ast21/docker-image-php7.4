@@ -1,4 +1,4 @@
-ARG PHP_VERSION=8.2.16
+ARG PHP_VERSION=8.3.3
 FROM php:${PHP_VERSION}-fpm
 
 ARG COMPOSER_VERSION=2.7.1
@@ -6,9 +6,18 @@ ARG COMPOSER_VERSION=2.7.1
 # Install dependencies
 RUN apt-get update && apt-get install -y \
         git zip unzip libpq-dev libzip-dev libpng-dev libfreetype6-dev libjpeg62-turbo-dev libwebp-dev \
-#    && docker-php-ext-configure gd --with-freetype-dir=/usr --with-jpeg-dir=/usr --with-webp-dir=/usr \  # php 7.3 and below
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
-    && docker-php-ext-install -j$(nproc) bcmath pdo_mysql pdo_pgsql gd zip exif sockets pcntl \
+    && docker-php-ext-install -j$(nproc) \
+        bcmath \
+        pdo_mysql \
+        pdo_pgsql \
+        gd \
+        zip \
+        exif \
+        sockets \
+        pcntl \
+        opcache \
+    && pecl install -o -f redis && docker-php-ext-enable redis && rm -rf /tmp/pear \
     && apt-get clean && apt-get autoclean
 
 # Install composer
