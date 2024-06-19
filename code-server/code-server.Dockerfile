@@ -6,7 +6,8 @@ ARG PHP_VERSION=8.3
 ARG COMPOSER_VERSION=2.7.1
 
 # Install PHP
-RUN apt-get update && apt-get install software-properties-common -y \
+RUN apt-get update  \
+    && apt-get install software-properties-common -y \
     && add-apt-repository ppa:ondrej/php \
     && apt-get update \
     && apt-get install -y \
@@ -25,8 +26,13 @@ RUN apt-get update && apt-get install software-properties-common -y \
         php${PHP_VERSION}-opcache \
         php${PHP_VERSION}-readline \
         php${PHP_VERSION}-mcrypt \
+        php${PHP_VERSION}-intl \
     && apt-get clean && apt-get autoclean
 
 # Install composer
 RUN curl -sS https://getcomposer.org/download/$COMPOSER_VERSION/composer.phar -o /usr/local/bin/composer \
     && chmod +x /usr/local/bin/composer
+
+# Install dev tools
+RUN apt-get update && apt-get install -y vim \
+    && apt-get clean && apt-get autoclean
